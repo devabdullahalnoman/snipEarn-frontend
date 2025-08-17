@@ -96,12 +96,12 @@ const Navbar = () => {
                 <span className="text-xl">{coins}</span>
               </p>
             </div>
-            <div className="avatar">
-              <div className="w-11 rounded-full">
-                <img src={user.photoURL} />
-              </div>
-            </div>
           </li>
+          <div className="avatar mr-3">
+            <div className="w-11 rounded-full">
+              <img src={user.photoURL} />
+            </div>
+          </div>
           <li>
             <button
               onClick={handleLogOut}
