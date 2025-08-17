@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useUserRole from "../../hooks/useUserRole";
 import { PiCoinVerticalDuotone } from "react-icons/pi";
@@ -7,7 +7,14 @@ import { PiCoinVerticalDuotone } from "react-icons/pi";
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const { coins } = useUserRole();
-  const [theme, setTheme] = useState("cupcake");
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "cupcake"
+  );
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const handleLogOut = async () => {
     try {
@@ -20,22 +27,68 @@ const Navbar = () => {
   const navLinks = (
     <div className="lg:flex items-center">
       <li>
-        <a
-          href="https://github.com/Programming-Hero-Web-Course4/b11a12-client-side-devabdullahalnoman"
-          className="py-2 lg:py-0 text-base lg:text-lg font-medium"
+        <label className="flex cursor-pointer gap-2 text-lg">
+          Theme
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+          </svg>
+          <input
+            type="checkbox"
+            className="toggle theme-controller text-base-content"
+            onChange={(e) => {
+              const newTheme = e.target.checked ? "dark" : "cupcake";
+              document.documentElement.setAttribute("data-theme", newTheme);
+              localStorage.setItem("theme", newTheme);
+              setTheme(newTheme);
+            }}
+            checked={theme === "dark"}
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </label>
+      </li>
+      <li>
+        <NavLink
+          to="https://github.com/devabdullahalnoman/snipEarn-frontend"
+          className="py-2 mr-2 lg:py-1.5 text-base lg:text-lg font-medium"
         >
           Join As Developer
-        </a>
+        </NavLink>
       </li>
       {user ? (
         <>
           <li className="mr-3 pb-2 lg:pb-0">
-            <Link to="/dashboard" className="text-base lg:text-lg font-medium">
+            <NavLink
+              to="/dashboard"
+              className="text-base lg:text-lg font-medium"
+            >
               Dashboard
-            </Link>
+            </NavLink>
           </li>
           <li className="flex flex-row-reverse justify-end lg:flex-row items-center pb-2 lg:pb-0">
-            <div className="badge badge-primary text-lg">
+            <div className="badge text-lg">
               <p className="flex items-center gap-1">
                 <span>
                   <PiCoinVerticalDuotone size={22} />
@@ -82,7 +135,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-base-200 shadow-sm">
+    <div className="bg-base-300 shadow-sm">
       <div className="navbar lg:w-11/12 mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
