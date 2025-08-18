@@ -23,6 +23,7 @@ import AdminRoute from "../routes/AdminRoute";
 import ManageUsers from "../pages/dashboard/adminDashboard/ManageUsers";
 import ManageTasks from "../pages/dashboard/adminDashboard/ManageTasks";
 import Forbidden from "../pages/forbidden/Forbidden";
+import ProfilePage from "../pages/dashboard/profilePage/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -156,6 +157,10 @@ const router = createBrowserRouter([
             <ManageTasks></ManageTasks>
           </AdminRoute>
         ),
+      },
+      {
+        path: "profile",
+        element: <ProfilePage></ProfilePage>,
       },
     ],
   },

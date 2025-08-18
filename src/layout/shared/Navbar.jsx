@@ -87,6 +87,14 @@ const Navbar = () => {
               Dashboard
             </NavLink>
           </li>
+          <li className="mr-3 pb-2 lg:pb-0">
+            <NavLink
+              to="/dashboard/profile"
+              className="text-base lg:text-lg font-medium"
+            >
+              My Profile
+            </NavLink>
+          </li>
           <li className="flex flex-row-reverse justify-end lg:flex-row items-center pb-2 lg:pb-0">
             <div className="badge text-lg">
               <p className="flex items-center gap-1">
