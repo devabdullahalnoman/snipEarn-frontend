@@ -5,7 +5,7 @@ import { FaDev } from "react-icons/fa";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer footer-horizontal footer-center text-primary-content p-10 bg-base-300">
+      <footer className="footer footer-horizontal footer-center text-base-content p-10 bg-base-300">
         <aside>
           <h1 className="text-3xl lg:text-5xl font-extrabold">snipEarn</h1>
           <p className="font-bold text-lg">

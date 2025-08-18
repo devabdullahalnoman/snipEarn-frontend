@@ -119,7 +119,7 @@ const DashboardLayout = () => {
             aria-label="Close sidebar"
           />
 
-          <ul className="menu p-4 w-64 bg-base-200 text-base-content space-y-2">
+          <ul className="menu p-4 w-64 bg-base-200 text-base-content text-lg font-semibold space-y-2">
             <li className="mb-4 lg:hidden">
               <NavLink to="/" className="text-3xl lg:text-5xl font-extrabold">
                 snipEarn
@@ -129,6 +129,12 @@ const DashboardLayout = () => {
               <NavLink to="/">
                 <FaHome className="inline-block mr-2" />
                 Site Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/profile">
+                <FaWallet className="inline-block mr-2" />
+                My Profile
               </NavLink>
             </li>
             <li>
