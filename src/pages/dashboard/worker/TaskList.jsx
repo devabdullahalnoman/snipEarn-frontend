@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
@@ -7,14 +7,15 @@ import LoadingSpinner from "../../../layout/shared/LoadingSpinner";
 
 const TaskList = () => {
   const { fetchTasksPromise } = useFetchTasksAPI();
+  const [sortOrder, setSortOrder] = useState("");
 
   const {
     data: tasks = [],
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["openTasks"],
-    queryFn: () => fetchTasksPromise({ open: true }),
+    queryKey: ["openTasks", sortOrder],
+    queryFn: () => fetchTasksPromise({ open: true, sort: sortOrder }),
   });
 
   if (isLoading) return <LoadingSpinner />;
@@ -28,6 +29,20 @@ const TaskList = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Open Tasks</h2>
+
+      <div className="mb-4">
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value)}
+          className="select select-bordered w-full max-w-xs"
+        >
+          <option value="" disabled>
+            Sort by
+          </option>
+          <option value="asc">Price: Low to High</option>
+          <option value="desc">Price: High to Low</option>
+        </select>
+      </div>
 
       {tasks.length === 0 ? (
         <p>No open tasks at the moment.</p>

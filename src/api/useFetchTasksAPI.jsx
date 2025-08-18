@@ -3,7 +3,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure.jsx";
 const useFetchTasksAPI = () => {
   const axiosSecure = useAxiosSecure();
 
-  const fetchTasksPromise = ({ buyerEmail, open } = {}) => {
+  const fetchTasksPromise = ({ buyerEmail, open, sort } = {}) => {
     if (buyerEmail) {
       const encodedEmail = encodeURIComponent(buyerEmail);
       return axiosSecure
@@ -11,8 +11,14 @@ const useFetchTasksAPI = () => {
         .then((res) => res.data);
     }
 
+    // if (open === true) {
+    //   return axiosSecure.get("/worker/tasks?open=true").then((res) => res.data);
+    // }
+
     if (open === true) {
-      return axiosSecure.get("/worker/tasks?open=true").then((res) => res.data);
+      let url = "/worker/tasks?open=true";
+      if (sort) url += `&sort=${sort}`;
+      return axiosSecure.get(url).then((res) => res.data);
     }
 
     return Promise.reject({
